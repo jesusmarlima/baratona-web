@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
-import {render} from 'react-dom';
+import {render} from 'react-dom' ;
+import {Row,div} from 'react-materialize';
 
 class Home extends Component {
     render(){
-        return (<h1>Config</h1>);
+        return (
+            <Row>
+                teste
+            </Row>
+        );
     }
 
 }
