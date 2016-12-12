@@ -1,20 +1,20 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {render} from 'react-dom' ;
+import {browserHistory ,Router, Route, IndexRoute} from 'react-router';
 import {Row,div} from 'react-materialize';
-
-class Home extends Component {
-    render(){
-        return (
-            <Row>
-                teste
-            </Row>
-        );
-    }
-
-}
-
-render(<Home />, document.getElementById('container'));
+import Navigator from './common/navigator.component.jsx';
+import Home from './common/home.component.jsx'
+import Login from './common/login.component.jsx';
 
 
+render(
+    <Router history={browserHistory}>
+        <Route path="/" component={Navigator}>
+            <IndexRoute component={Home} />
+            <Route path="/login" component={Login}/>
+        </Route>
+    </Router>
+    ,document.getElementById('container')
+);
 
 
