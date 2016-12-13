@@ -67,7 +67,7 @@
 	
 	var _homeComponent2 = _interopRequireDefault(_homeComponent);
 	
-	var _loginComponent = __webpack_require__(/*! ./common/login.component.jsx */ 277);
+	var _loginComponent = __webpack_require__(/*! ./session/login.component.jsx */ 278);
 	
 	var _loginComponent2 = _interopRequireDefault(_loginComponent);
 	
@@ -31408,10 +31408,11 @@
 	exports.default = Home;
 
 /***/ },
-/* 277 */
-/*!****************************************!*\
-  !*** ./app/common/login.component.jsx ***!
-  \****************************************/
+/* 277 */,
+/* 278 */
+/*!*****************************************!*\
+  !*** ./app/session/login.component.jsx ***!
+  \*****************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31425,6 +31426,8 @@
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactMaterialize = __webpack_require__(/*! react-materialize */ 178);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -31447,9 +31450,36 @@
 	        key: 'render',
 	        value: function render() {
 	            return _react2.default.createElement(
-	                'h1',
-	                null,
-	                'Login'
+	                'div',
+	                { className: 'center' },
+	                _react2.default.createElement(
+	                    _reactMaterialize.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        'h3',
+	                        null,
+	                        'Login'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactMaterialize.Row,
+	                    null,
+	                    _react2.default.createElement(_reactMaterialize.Input, { type: 'email', label: 'Email', s: 12, m: 12, l: 12 })
+	                ),
+	                _react2.default.createElement(
+	                    _reactMaterialize.Row,
+	                    null,
+	                    _react2.default.createElement(_reactMaterialize.Input, { type: 'password', label: 'password', s: 12, m: 12, l: 12 })
+	                ),
+	                _react2.default.createElement(
+	                    _reactMaterialize.Row,
+	                    null,
+	                    _react2.default.createElement(
+	                        _reactMaterialize.Button,
+	                        { waves: 'light' },
+	                        'Login'
+	                    )
+	                )
 	            );
 	        }
 	    }]);
