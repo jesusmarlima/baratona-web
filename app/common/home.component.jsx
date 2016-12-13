@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import Auth from '../session/Auth.js'
 
 class Home extends Component {
+
     render() {
         return (
-            <h1>Lets Drink</h1>
+            <h1>{Auth.getToken()}</h1>
         );
     }
 }
