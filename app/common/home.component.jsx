@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
-import Auth from '../session/Auth.js'
+import Auth from '../modules/cookie_store.js'
 
 class Home extends Component {
 
     render() {
         return (
-            <h1>{Auth.getToken()}</h1>
+            <div className="center">
+                <h1>Welcome to Baratona</h1>
+            </div>
         );
     }
 }
