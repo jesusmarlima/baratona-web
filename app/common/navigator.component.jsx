@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {Navbar,NavItem} from 'react-materialize';
 import {browserHistory} from "react-router";
-import Auth from '../session/Auth.js'
+import CookieStore from '../modules/cookie_store.js'
 
 class Navigator extends Component {
 
     logout(ev){
         ev.preventDefault();
-        Auth.deauthenticateUser();
+        CookieStore.cleanToken();
         browserHistory.push("/login")
     }
 
@@ -16,9 +16,11 @@ class Navigator extends Component {
             <div>
                 <Navbar className='purple darken-4' brand='Baratona' right>
                     <NavItem href='/login'>Login</NavItem>
+                    <NavItem href='/register'>Register</NavItem>
+                    <NavItem href='/events/new'>New Event</NavItem>
                     <NavItem href='#' onClick={this.logout.bind(this)}>Logout</NavItem>
                 </Navbar>
-                <div className="container">
+                <div>
                     {this.props.children}
                 </div>
             </div>

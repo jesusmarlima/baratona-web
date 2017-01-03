@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Row, Input,Button,Icon} from 'react-materialize';
 import {browserHistory} from 'react-router'
 import axios from 'axios';
-import CookieStore from '../modules/cookie_store.js';
 import api_url from '../modules/api_url.js';
 
 
@@ -19,39 +18,35 @@ class Login extends Component {
         return <span className="color red">{this.state.errors}</span>
     }
 
-    login(){
+    register(){
 
-        let credentials = {email:this.refs.email.state.value, password:this.refs.password.state.value}
-        axios.post(api_url.BASE_URL + '/authenticate', credentials)
+        let credentials = {name:this.refs.name.state.value, email:this.refs.email.state.value, password:this.refs.password.state.value}
+        axios.post(api_url.BASE_URL + '/users', credentials)
             .then((response) => {
-                debugger
-                CookieStore.saveToken(response.data.auth_token);
-                CookieStore.saveUser(response.data.user);
+                console.log(response);
 
-
-                console.log(CookieStore.getToken());
-                browserHistory.push('/');
+                browserHistory.push('/login');
             })
             .catch((error) => {
-                CookieStore.cleanToken();
                 console.log(error);
                 this.setState({
-                    errors:"invalid Uername or Password!"
+                    errors:error
                 })
 
             });
     }
 
     render() {
-        debugger
-        {console.log(__BARATONA_API_URL__)}
         return (
             <div className="center">
                 <Row>
-                    <h3>Login</h3>
+                    <h3>Register</h3>
                 </Row>
                 <Row>
                     {this.errors()}
+                </Row>
+                <Row>
+                    <Input ref="name" type="text" label="Name" s={12} m={12} l={12}/>
                 </Row>
                 <Row>
                     <Input ref="email" type="email" label="Email" s={12} m={12} l={12}/>
@@ -60,7 +55,7 @@ class Login extends Component {
                     <Input ref="password" type="password" label="password" s={12} m={12} l={12} />
                 </Row>
                 <Row>
-                    <Button waves='light' onClick={this.login.bind(this)}>Login</Button>
+                    <Button waves='light' onClick={this.register.bind(this)}>Login</Button>
                 </Row>
             </div>
         );
