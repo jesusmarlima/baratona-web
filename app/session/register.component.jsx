@@ -24,9 +24,11 @@ class Login extends Component {
                           password:this.refs.password.state.value,
                           password_confirmation: this.refs.password_confirmation.state.value
                         }
+
+        var success = "Success, user " + credentials.name + " was created."
         axios.post(__BARATONA_API_URL__ + '/users', credentials)
             .then((response) => {
-                browserHistory.push('/login');
+                browserHistory.push('/success/' + success  );
             })
             .catch((error) => {
                 this.setState({
@@ -55,10 +57,10 @@ class Login extends Component {
                     <Input ref="password" type="password" label="password" s={12} m={12} l={12} />
                 </Row>
                 <Row>
-                    <Input ref="password_confirmation" type="password" label="password_confirmation" s={12} m={12} l={12} />
+                    <Input ref="password_confirmation" type="password" label="password confirmation" s={12} m={12} l={12} />
                 </Row>
                 <Row>
-                    <Button waves='light' onClick={this.register.bind(this)}>Login</Button>
+                    <Button waves='light' onClick={this.register.bind(this)}>Register</Button>
                 </Row>
             </div>
         );

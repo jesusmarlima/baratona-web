@@ -67,6 +67,10 @@
 	
 	var _homeComponent2 = _interopRequireDefault(_homeComponent);
 	
+	var _successComponent = __webpack_require__(/*! ./common/success.component.jsx */ 308);
+	
+	var _successComponent2 = _interopRequireDefault(_successComponent);
+	
 	var _loginComponent = __webpack_require__(/*! ./session/login.component.jsx */ 280);
 	
 	var _loginComponent2 = _interopRequireDefault(_loginComponent);
@@ -95,7 +99,8 @@
 	        { path: '/', component: _navigatorComponent2.default },
 	        _react2.default.createElement(_reactRouter.IndexRoute, { component: _homeComponent2.default, onEnter: requireAuth }),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/login', component: _loginComponent2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: '/register', component: _registerComponent2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: '/register', component: _registerComponent2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: '/success/:message', component: _successComponent2.default })
 	    )
 	), document.getElementById('container'));
 
@@ -33621,8 +33626,10 @@
 	                password: this.refs.password.state.value,
 	                password_confirmation: this.refs.password_confirmation.state.value
 	            };
+	
+	            var success = "Success, user " + credentials.name + " was created.";
 	            _axios2.default.post(("http://localhost:9393") + '/users', credentials).then(function (response) {
-	                _reactRouter.browserHistory.push('/login');
+	                _reactRouter.browserHistory.push('/success/' + success);
 	            }).catch(function (error) {
 	                _this2.setState({
 	                    errors: error.response.data
@@ -33667,7 +33674,7 @@
 	                _react2.default.createElement(
 	                    _reactMaterialize.Row,
 	                    null,
-	                    _react2.default.createElement(_reactMaterialize.Input, { ref: 'password_confirmation', type: 'password', label: 'password_confirmation', s: 12, m: 12, l: 12 })
+	                    _react2.default.createElement(_reactMaterialize.Input, { ref: 'password_confirmation', type: 'password', label: 'password confirmation', s: 12, m: 12, l: 12 })
 	                ),
 	                _react2.default.createElement(
 	                    _reactMaterialize.Row,
@@ -33675,7 +33682,7 @@
 	                    _react2.default.createElement(
 	                        _reactMaterialize.Button,
 	                        { waves: 'light', onClick: this.register.bind(this) },
-	                        'Login'
+	                        'Register'
 	                    )
 	                )
 	            );
@@ -33768,6 +33775,71 @@
 	}(_react.Component);
 	
 	exports.default = Errors;
+
+/***/ },
+/* 308 */
+/*!******************************************!*\
+  !*** ./app/common/success.component.jsx ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactMaterialize = __webpack_require__(/*! react-materialize */ 233);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Success = function (_Component) {
+	  _inherits(Success, _Component);
+	
+	  function Success() {
+	    _classCallCheck(this, Success);
+	
+	    return _possibleConstructorReturn(this, (Success.__proto__ || Object.getPrototypeOf(Success)).call(this));
+	  }
+	
+	  _createClass(Success, [{
+	    key: 'render',
+	    value: function render() {
+	      debugger;
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'center' },
+	        _react2.default.createElement(
+	          _reactMaterialize.Row,
+	          null,
+	          _react2.default.createElement(
+	            'h3',
+	            null,
+	            ' ',
+	            this.props.params.message,
+	            ' '
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Success;
+	}(_react.Component);
+	
+	exports.default = Success;
 
 /***/ }
 /******/ ]);
