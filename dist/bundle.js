@@ -33654,7 +33654,7 @@
   \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	/* WEBPACK VAR INJECTION */(function(process) {"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -33663,10 +33663,11 @@
 	 * Created by jesusmarlima on 12/15/16.
 	 */
 	var api_url = {
-	  BASE_URL: ("http://localhost:9393")
+	  BASE_URL: process.env.BARATONA_API_URL
 	};
 	
 	exports.default = api_url;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../~/process/browser.js */ 3)))
 
 /***/ },
 /* 308 */
