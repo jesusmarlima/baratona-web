@@ -34037,7 +34037,7 @@
   \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -34098,7 +34098,7 @@
 	            var _this2 = this;
 	
 	            var credentials = { name: this.refs.name.state.value, email: this.refs.email.state.value, password: this.refs.password.state.value };
-	            _axios2.default.post(_api_url2.default.BASE_URL + '/users', credentials).then(function (response) {
+	            _axios2.default.post(process.env.BARATONA_API_URL + '/users', credentials).then(function (response) {
 	                console.log(response);
 	
 	                _reactRouter.browserHistory.push('/login');
@@ -34161,6 +34161,7 @@
 	}(_react.Component);
 	
 	exports.default = Login;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./../../~/process/browser.js */ 3)))
 
 /***/ }
 /******/ ]);
