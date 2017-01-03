@@ -31903,6 +31903,10 @@
 	
 	var _cookie_store2 = _interopRequireDefault(_cookie_store);
 	
+	var _errorsComponent = __webpack_require__(/*! ../common/errors.component.jsx */ 307);
+	
+	var _errorsComponent2 = _interopRequireDefault(_errorsComponent);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31920,21 +31924,12 @@
 	        var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this));
 	
 	        _this.state = {
-	            errors: ""
+	            errors: {}
 	        };
 	        return _this;
 	    }
 	
 	    _createClass(Login, [{
-	        key: 'errors',
-	        value: function errors() {
-	            return _react2.default.createElement(
-	                'span',
-	                { className: 'color red' },
-	                this.state.errors
-	            );
-	        }
-	    }, {
 	        key: 'login',
 	        value: function login() {
 	            var _this2 = this;
@@ -31943,14 +31938,11 @@
 	            _axios2.default.post(("http://localhost:9393") + '/authenticate', credentials).then(function (response) {
 	                _cookie_store2.default.saveToken(response.data.auth_token);
 	                _cookie_store2.default.saveUser(response.data.user);
-	
-	                console.log(_cookie_store2.default.getToken());
 	                _reactRouter.browserHistory.push('/');
 	            }).catch(function (error) {
 	                _cookie_store2.default.cleanToken();
-	                console.log(error);
 	                _this2.setState({
-	                    errors: "invalid Uername or Password!"
+	                    errors: error.response.data
 	                });
 	            });
 	        }
@@ -31972,7 +31964,7 @@
 	                _react2.default.createElement(
 	                    _reactMaterialize.Row,
 	                    null,
-	                    this.errors()
+	                    _react2.default.createElement(_errorsComponent2.default, { data: this.state.errors })
 	                ),
 	                _react2.default.createElement(
 	                    _reactMaterialize.Row,
@@ -33593,6 +33585,10 @@
 	
 	var _axios2 = _interopRequireDefault(_axios);
 	
+	var _errorsComponent = __webpack_require__(/*! ../common/errors.component.jsx */ 307);
+	
+	var _errorsComponent2 = _interopRequireDefault(_errorsComponent);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33610,24 +33606,12 @@
 	        var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this));
 	
 	        _this.state = {
-	            errors: []
+	            errors: {}
 	        };
 	        return _this;
 	    }
 	
 	    _createClass(Login, [{
-	        key: 'errors',
-	        value: function errors() {
-	            var errors = this.state.errors;
-	            return errors.map(function (error, i) {
-	                return _react2.default.createElement(
-	                    'span',
-	                    { className: 'color red' },
-	                    error
-	                );
-	            });
-	        }
-	    }, {
 	        key: 'register',
 	        value: function register() {
 	            var _this2 = this;
@@ -33640,10 +33624,8 @@
 	            _axios2.default.post(("http://localhost:9393") + '/users', credentials).then(function (response) {
 	                _reactRouter.browserHistory.push('/login');
 	            }).catch(function (error) {
-	                debugger;
-	                console.log(error);
 	                _this2.setState({
-	                    errors: error.response.data.errors
+	                    errors: error.response.data
 	                });
 	            });
 	        }
@@ -33665,7 +33647,7 @@
 	                _react2.default.createElement(
 	                    _reactMaterialize.Row,
 	                    null,
-	                    this.errors()
+	                    _react2.default.createElement(_errorsComponent2.default, { data: this.state.errors })
 	                ),
 	                _react2.default.createElement(
 	                    _reactMaterialize.Row,
@@ -33704,6 +33686,88 @@
 	}(_react.Component);
 	
 	exports.default = Login;
+
+/***/ },
+/* 307 */
+/*!*****************************************!*\
+  !*** ./app/common/errors.component.jsx ***!
+  \*****************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Errors = function (_Component) {
+	  _inherits(Errors, _Component);
+	
+	  function Errors() {
+	    _classCallCheck(this, Errors);
+	
+	    return _possibleConstructorReturn(this, (Errors.__proto__ || Object.getPrototypeOf(Errors)).call(this));
+	  }
+	
+	  _createClass(Errors, [{
+	    key: "errors",
+	    value: function errors() {
+	      var data = this.props.data;
+	      if (data.hasOwnProperty("errors")) {
+	        return data.errors.map(function (error, i) {
+	          return _react2.default.createElement(
+	            "p",
+	            null,
+	            _react2.default.createElement(
+	              "span",
+	              { className: "color red" },
+	              error
+	            )
+	          );
+	        });
+	      } else if (data.hasOwnProperty("error")) {
+	        return data.error.user_authentication.map(function (error, i) {
+	          return _react2.default.createElement(
+	            "p",
+	            null,
+	            _react2.default.createElement(
+	              "span",
+	              { className: "color red" },
+	              error
+	            )
+	          );
+	        });
+	      }
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        null,
+	        this.errors()
+	      );
+	    }
+	  }]);
+	
+	  return Errors;
+	}(_react.Component);
+	
+	exports.default = Errors;
 
 /***/ }
 /******/ ]);

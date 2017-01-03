@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {Row, Input,Button,Icon} from 'react-materialize';
 import {browserHistory} from 'react-router'
 import axios from 'axios';
+import Errors from '../common/errors.component.jsx';
+
 
 
 class Login extends Component {
@@ -9,14 +11,11 @@ class Login extends Component {
     constructor(){
         super();
         this.state = {
-            errors:[]
+            errors:{}
         }
     }
 
-    errors(){
-       var errors = this.state.errors
-       return errors.map((error,i)=> <span className="color red">{error}</span> )
-    }
+
 
     register(){
 
@@ -30,10 +29,8 @@ class Login extends Component {
                 browserHistory.push('/login');
             })
             .catch((error) => {
-                debugger
-                console.log(error);
                 this.setState({
-                    errors: error.response.data.errors
+                    errors: error.response.data
                 })
 
             });
@@ -46,7 +43,7 @@ class Login extends Component {
                     <h3>Register</h3>
                 </Row>
                 <Row>
-                    {this.errors()}
+                    <Errors data={this.state.errors}/>
                 </Row>
                 <Row>
                     <Input ref="name" type="text" label="Name" s={12} m={12} l={12}/>

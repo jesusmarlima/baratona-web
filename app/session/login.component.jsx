@@ -3,6 +3,8 @@ import {Row, Input,Button,Icon} from 'react-materialize';
 import {browserHistory} from 'react-router'
 import axios from 'axios';
 import CookieStore from '../modules/cookie_store.js';
+import Errors from '../common/errors.component.jsx';
+
 
 
 class Login extends Component {
@@ -10,12 +12,8 @@ class Login extends Component {
     constructor(){
         super();
         this.state = {
-            errors:""
+            errors:{}
         }
-    }
-
-    errors(){
-        return <span className="color red">{this.state.errors}</span>
     }
 
     login(){
@@ -25,18 +23,13 @@ class Login extends Component {
             .then((response) => {
                 CookieStore.saveToken(response.data.auth_token);
                 CookieStore.saveUser(response.data.user);
-
-
-                console.log(CookieStore.getToken());
                 browserHistory.push('/');
             })
             .catch((error) => {
                 CookieStore.cleanToken();
-                console.log(error);
                 this.setState({
-                    errors:"invalid Uername or Password!"
+                    errors:error.response.data
                 })
-
             });
     }
 
@@ -47,7 +40,7 @@ class Login extends Component {
                     <h3>Login</h3>
                 </Row>
                 <Row>
-                    {this.errors()}
+                    <Errors data={this.state.errors}/>
                 </Row>
                 <Row>
                     <Input ref="email" type="email" label="Email" s={12} m={12} l={12}/>
