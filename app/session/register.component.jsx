@@ -9,27 +9,31 @@ class Login extends Component {
     constructor(){
         super();
         this.state = {
-            errors:""
+            errors:[]
         }
     }
 
     errors(){
-        return <span className="color red">{this.state.errors}</span>
+       var errors = this.state.errors
+       return errors.map((error,i)=> <span className="color red">{error}</span> )
     }
 
     register(){
 
-        let credentials = {name:this.refs.name.state.value, email:this.refs.email.state.value, password:this.refs.password.state.value}
+        let credentials = {name:this.refs.name.state.value,
+                          email:this.refs.email.state.value,
+                          password:this.refs.password.state.value,
+                          password_confirmation: this.refs.password_confirmation.state.value
+                        }
         axios.post(__BARATONA_API_URL__ + '/users', credentials)
             .then((response) => {
-                console.log(response);
-
                 browserHistory.push('/login');
             })
             .catch((error) => {
+                debugger
                 console.log(error);
                 this.setState({
-                    errors:error
+                    errors: error.response.data.errors
                 })
 
             });
@@ -52,6 +56,9 @@ class Login extends Component {
                 </Row>
                 <Row>
                     <Input ref="password" type="password" label="password" s={12} m={12} l={12} />
+                </Row>
+                <Row>
+                    <Input ref="password_confirmation" type="password" label="password_confirmation" s={12} m={12} l={12} />
                 </Row>
                 <Row>
                     <Button waves='light' onClick={this.register.bind(this)}>Login</Button>

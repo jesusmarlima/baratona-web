@@ -33610,7 +33610,7 @@
 	        var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this));
 	
 	        _this.state = {
-	            errors: ""
+	            errors: []
 	        };
 	        return _this;
 	    }
@@ -33618,26 +33618,32 @@
 	    _createClass(Login, [{
 	        key: 'errors',
 	        value: function errors() {
-	            return _react2.default.createElement(
-	                'span',
-	                { className: 'color red' },
-	                this.state.errors
-	            );
+	            var errors = this.state.errors;
+	            return errors.map(function (error, i) {
+	                return _react2.default.createElement(
+	                    'span',
+	                    { className: 'color red' },
+	                    error
+	                );
+	            });
 	        }
 	    }, {
 	        key: 'register',
 	        value: function register() {
 	            var _this2 = this;
 	
-	            var credentials = { name: this.refs.name.state.value, email: this.refs.email.state.value, password: this.refs.password.state.value };
+	            var credentials = { name: this.refs.name.state.value,
+	                email: this.refs.email.state.value,
+	                password: this.refs.password.state.value,
+	                password_confirmation: this.refs.password_confirmation.state.value
+	            };
 	            _axios2.default.post(("http://localhost:9393") + '/users', credentials).then(function (response) {
-	                console.log(response);
-	
 	                _reactRouter.browserHistory.push('/login');
 	            }).catch(function (error) {
+	                debugger;
 	                console.log(error);
 	                _this2.setState({
-	                    errors: error
+	                    errors: error.response.data.errors
 	                });
 	            });
 	        }
@@ -33675,6 +33681,11 @@
 	                    _reactMaterialize.Row,
 	                    null,
 	                    _react2.default.createElement(_reactMaterialize.Input, { ref: 'password', type: 'password', label: 'password', s: 12, m: 12, l: 12 })
+	                ),
+	                _react2.default.createElement(
+	                    _reactMaterialize.Row,
+	                    null,
+	                    _react2.default.createElement(_reactMaterialize.Input, { ref: 'password_confirmation', type: 'password', label: 'password_confirmation', s: 12, m: 12, l: 12 })
 	                ),
 	                _react2.default.createElement(
 	                    _reactMaterialize.Row,
