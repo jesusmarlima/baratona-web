@@ -21,7 +21,7 @@ class Login extends Component {
     register(){
 
         let credentials = {name:this.refs.name.state.value, email:this.refs.email.state.value, password:this.refs.password.state.value}
-        axios.post(api_url.BASE_URL + '/users', credentials)
+        axios.post(process.env.BARATONA_API_URL + '/users', credentials)
             .then((response) => {
                 console.log(response);
 
