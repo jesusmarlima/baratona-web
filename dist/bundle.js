@@ -32036,7 +32036,7 @@
 	        value: function render() {
 	            debugger;
 	            {
-	                console.log(("http://localhost:9393"));
+	                console.log((https://baratona-api.herokuapp.com));
 	            }
 	            return _react2.default.createElement(
 	                'div',

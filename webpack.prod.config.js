@@ -5,7 +5,7 @@ var BUILD_DIR = path.resolve(__dirname, 'dist');
 var APP_DIR = path.resolve(__dirname, 'app');
 
 var definePlugin = new webpack.DefinePlugin({
-  __BARATONA_API_URL__: JSON.stringify(process.env.BARATONA_API_URL || 'true')
+    __BARATONA_API_URL__: 'https://baratona-api.herokuapp.com'
 });
 
 

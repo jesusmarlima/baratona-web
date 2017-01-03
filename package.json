@@ -4,6 +4,7 @@
   "main": "index.js",
   "scripts": {
     "watch": "webpack -d --watch",
+    "heroku-postbuild": "webpack -p --config ./webpack.prod.config.js --progress",
     "build": "webpack",
     "start": "node index.js"
   },
