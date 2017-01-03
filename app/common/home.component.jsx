@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Auth from '../modules/cookie_store.js'
 
 class Home extends Component {
 

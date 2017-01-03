@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Row, Input,Button,Icon} from 'react-materialize';
 import {browserHistory} from 'react-router'
 import axios from 'axios';
-import api_url from '../modules/api_url.js';
 
 
 class Login extends Component {
@@ -21,7 +20,7 @@ class Login extends Component {
     register(){
 
         let credentials = {name:this.refs.name.state.value, email:this.refs.email.state.value, password:this.refs.password.state.value}
-        axios.post(process.env.BARATONA_API_URL + '/users', credentials)
+        axios.post(__BARATONA_API_URL__ + '/users', credentials)
             .then((response) => {
                 console.log(response);
 

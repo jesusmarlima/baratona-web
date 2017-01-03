@@ -17,8 +17,6 @@ class Navigator extends Component {
                 <Navbar className='purple darken-4' brand='Baratona' right>
                     <NavItem href='/login'>Login</NavItem>
                     <NavItem href='/register'>Register</NavItem>
-                    <NavItem href='/events/new'>New Event</NavItem>
-                    <NavItem href='#' onClick={this.logout.bind(this)}>Logout</NavItem>
                 </Navbar>
                 <div>
                     {this.props.children}

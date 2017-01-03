@@ -3,7 +3,6 @@ import {Row, Input,Button,Icon} from 'react-materialize';
 import {browserHistory} from 'react-router'
 import axios from 'axios';
 import CookieStore from '../modules/cookie_store.js';
-import api_url from '../modules/api_url.js';
 
 
 class Login extends Component {
@@ -22,9 +21,8 @@ class Login extends Component {
     login(){
 
         let credentials = {email:this.refs.email.state.value, password:this.refs.password.state.value}
-        axios.post(api_url.BASE_URL + '/authenticate', credentials)
+        axios.post(__BARATONA_API_URL__ + '/authenticate', credentials)
             .then((response) => {
-                debugger
                 CookieStore.saveToken(response.data.auth_token);
                 CookieStore.saveUser(response.data.user);
 
