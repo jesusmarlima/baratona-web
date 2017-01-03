@@ -43,8 +43,6 @@ class Login extends Component {
     }
 
     render() {
-        debugger
-        {console.log(__BARATONA_API_URL__)}
         return (
             <div className="center">
                 <Row>
