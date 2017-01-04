@@ -23,7 +23,7 @@ class Login extends Component {
             .then((response) => {
                 CookieStore.saveToken(response.data.auth_token);
                 CookieStore.saveUser(response.data.user);
-                browserHistory.push('/');
+                browserHistory.push('/users/profile');
             })
             .catch((error) => {
               if (error.response){

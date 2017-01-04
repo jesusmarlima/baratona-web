@@ -22,6 +22,14 @@ class Navigator extends Component {
 
     }
 
+    user(){
+      if (this.state.user != ""){
+        return  (<div className="chip">
+                  <img src="images/sample-1.jpg" alt="Contact Person"/>{this.state.user}
+                </div>);
+      }
+    }
+
 
     componentWillMount(nextProps, nextState){
       this.updateState()
@@ -38,7 +46,9 @@ class Navigator extends Component {
                  <Navbar className='purple darken-4' brand='Baratona' right>
                      <NavItem href='/login'>Login</NavItem>
                      <NavItem href='/register'>Register</NavItem>
-                     <NavItem>{this.state.user}</NavItem>
+                     <NavItem href='/users/profile'>
+                        {this.user()}
+                     </NavItem>
                  </Navbar>
                 <div>
                     {this.props.children}

@@ -8,6 +8,7 @@ import Success from './common/success.component.jsx'
 import Login from './session/login.component.jsx';
 import CookieStore from './modules/cookie_store.js';
 import Register from './session/register.component.jsx';
+import Profile from './users/profile.component.jsx';
 
 const requireAuth = (nextState, replace) => {
      if (!CookieStore.isUserAuthenticated()){
@@ -22,6 +23,7 @@ render(
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>
             <Route path="/success/:message" component={Success}/>
+            <Route path="/users/profile" component={Profile} onEnter={requireAuth}/>
         </Route>
     </Router>
     ,document.getElementById('container')
