@@ -6,19 +6,18 @@ import Navigator from './common/navigator.component.jsx';
 import Home from './common/home.component.jsx';
 import Success from './common/success.component.jsx'
 import Login from './session/login.component.jsx';
-import Auth from './modules/cookie_store.js';
+import CookieStore from './modules/cookie_store.js';
 import Register from './session/register.component.jsx';
 
 const requireAuth = (nextState, replace) => {
-     if (!Auth.isUserAuthenticated()){
+     if (!CookieStore.isUserAuthenticated()){
          replace({pathname: "/login"})
      }
-
 }
 
 render(
     <Router history={browserHistory}>
-        <Route path="/" component={Navigator} >
+        <Route path="/" component={Navigator}>
             <IndexRoute component={Home} onEnter={requireAuth} />
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>

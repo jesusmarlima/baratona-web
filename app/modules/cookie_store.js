@@ -25,13 +25,17 @@ class CookieStore {
         return cookie.load('user')
     }
 
-    static getToken(token){
+    static getToken(){
         return cookie.load('token')
     }
 
     static cleanToken(){
         cookie.remove('token');
     }
+    static cleanUser(){
+         cookie.remove('user')
+    }
+
 
 }
 
