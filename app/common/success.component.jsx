@@ -9,7 +9,6 @@ class Success extends Component{
 
 
   render(){
-    debugger
     return(
       <div className="center">
         <Row>
