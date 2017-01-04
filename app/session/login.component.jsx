@@ -26,10 +26,11 @@ class Login extends Component {
                 browserHistory.push('/');
             })
             .catch((error) => {
-                CookieStore.cleanToken();
+              if (error.response){
                 this.setState({
-                    errors:error.response.data
+                    errors: error.response.data
                 })
+              }
             });
     }
 

@@ -5,19 +5,41 @@ import CookieStore from '../modules/cookie_store.js'
 
 class Navigator extends Component {
 
-    logout(ev){
-        ev.preventDefault();
-        CookieStore.cleanToken();
-        browserHistory.push("/login")
+    constructor(props){
+      super(props)
+      this.state = {
+        user: ""
+      }
+    }
+
+    updateState(){
+      var user = CookieStore.getUser()
+      if (user){
+        this.setState({
+          user:user.name
+        })
+      }
+
+    }
+
+
+    componentWillMount(nextProps, nextState){
+      this.updateState()
+    }
+
+
+    componentWillUpdate(nextProps, nextState){
+      this.updateState()
     }
 
     render() {
         return (
             <div>
-                <Navbar className='purple darken-4' brand='Baratona' right>
-                    <NavItem href='/login'>Login</NavItem>
-                    <NavItem href='/register'>Register</NavItem>
-                </Navbar>
+                 <Navbar className='purple darken-4' brand='Baratona' right>
+                     <NavItem href='/login'>Login</NavItem>
+                     <NavItem href='/register'>Register</NavItem>
+                     <NavItem>{this.state.user}</NavItem>
+                 </Navbar>
                 <div>
                     {this.props.children}
                 </div>
@@ -26,4 +48,4 @@ class Navigator extends Component {
     }
 }
 
-export default Navigator
+export default Navigator;
