@@ -8,10 +8,11 @@ class Errors extends Component {
 
     errors(){
        let data = this.props.data
+
        if (data.hasOwnProperty("errors")){
-         return data.errors.map((error,i)=> <p><span className="color red">{error}</span></p> )
+         return data.errors.map((error,i)=> <p key={i}><span className="color red">{error}</span></p> )
        } else if (data.hasOwnProperty("error")){
-         return data.error.user_authentication.map((error,i)=> <p><span className="color red">{error}</span></p> )
+         return data.error.user_authentication.map((error,i)=> <p key={i}><span className="color red">{error}</span></p> )
        }
     }
 
