@@ -17,7 +17,6 @@ class NewEvent extends React.Component{
 
 
   checkDate() {
-    debugger
     if (this.refs.date.value == '') {
       this.refs.date.className = "datepicker validate picker__input invalid"
       return false;
