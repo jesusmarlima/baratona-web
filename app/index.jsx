@@ -10,6 +10,7 @@ import CookieStore from './modules/cookie_store.js';
 import Register from './session/register.component.jsx';
 import Profile from './users/profile.component.jsx';
 import NewEvent from './events/new_event.component.jsx';
+import Container from './maps/container.component.jsx';
 
 const requireAuth = (nextState, replace) => {
      if (!CookieStore.isUserAuthenticated()){
@@ -23,6 +24,7 @@ render(
             <IndexRoute component={Home} onEnter={requireAuth} />
             <Route path="/login" component={Login}/>
             <Route path="/register" component={Register}/>
+              <Route path="/maps" component={Container}/>
             <Route path="/events" component={NewEvent}/>
               <Route path="/success/:message" component={Success}/>
             <Route path="/users/profile" component={Profile} onEnter={requireAuth}/>
