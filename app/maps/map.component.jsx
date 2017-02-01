@@ -66,10 +66,7 @@ export class Map extends React.Component {
   }
 
   render() {
-    const style = {
-      width: '100vw',
-      height: '80vh'
-    }
+    const style = this.props.style
     return (
       <div style={style} ref='map'>
         Loading map...
@@ -82,7 +79,8 @@ export class Map extends React.Component {
 Map.propTypes = {
   google: React.PropTypes.object,
   zoom: React.PropTypes.number,
-  initialCenter: React.PropTypes.object
+  initialCenter: React.PropTypes.object,
+  style: React.PropTypes.object
 }
 
 
@@ -92,6 +90,10 @@ Map.defaultProps = {
   initialCenter: {
     lat: 40.660328,
     lng: -73.9771258
+  },
+  style:{
+    width: '80vw',
+    height: '80vh'
   }
 }
 

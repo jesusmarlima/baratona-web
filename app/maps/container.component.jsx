@@ -7,6 +7,7 @@ import InfoWindow from './info_window.component.jsx'
 import axios from 'axios';
 import CookieStore from '../modules/cookie_store.js';
 import Errors from '../common/errors.component.jsx';
+import CardBar from '../events/card_bar.component.jsx';
 
 
 
@@ -20,7 +21,8 @@ export class Container extends React.Component {
           selectedPlace: {},
           text_to_search:"",
           pos:{lat: 40.660828, lng: -73.9771258},
-          name:""
+          name:"",
+          bar:{name:"",icon:""}
       }
     }
 
@@ -31,7 +33,7 @@ export class Container extends React.Component {
 
     search(text_to_search){
       let token = CookieStore.getToken()
-      let credentials = {text_to_search: text_to_search, user: CookieStore.getUser().email }
+      let credentials = {text_to_search: text_to_search}
 
       axios.defaults.baseURL = '__BARATONA_API_URL__';
       axios.defaults.headers.common['Authorization'] = token;
@@ -41,6 +43,7 @@ export class Container extends React.Component {
             var bars = response.data.bars
             var location = bars[0].geometry.location
             this.setState({
+              bar: bars[0],
               pos: location,
               name: bars[0].name})
           })
@@ -57,6 +60,8 @@ export class Container extends React.Component {
         activeMarker: marker,
         showingInfoWindow: true
       });
+
+      this.props.onClick(this.state.bar)
     }
 
     onInfoWindowClose(){
@@ -68,7 +73,7 @@ export class Container extends React.Component {
 
     render() {
     return (
-      <div>
+      <div className="row" >
         <div>
           <header>
             <h3>{this.state.text_to_search}</h3>
@@ -76,19 +81,17 @@ export class Container extends React.Component {
           </header>
         </div>
         <div>
-          <Map google={this.props.google}>
+          <Map google={this.props.google} style={this.props.style}>
             <Marker
               onClick={this.onMarkerClick.bind(this)}
               name={this}
               position={this.state.pos}/>
-              <InfoWindow
-                marker={this.state.activeMarker}
-                visible={this.state.showingInfoWindow}
-                onClose={this.onInfoWindowClose.bind(this)}>
-                  <div>
-                    <h2>{this.state.name}</h2>
-                  </div>
-              </InfoWindow>
+            <InfoWindow
+              marker={this.state.activeMarker}
+              visible={this.state.showingInfoWindow}
+              onClose={this.onInfoWindowClose.bind(this)}>
+                <CardBar bar={this.state.bar} />
+            </InfoWindow>
           </Map>
         </div>
       </div>

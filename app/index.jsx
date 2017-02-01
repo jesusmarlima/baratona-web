@@ -11,6 +11,8 @@ import Register from './session/register.component.jsx';
 import Profile from './users/profile.component.jsx';
 import NewEvent from './events/new_event.component.jsx';
 import Container from './maps/container.component.jsx';
+import CardBar from './events/card_bar.component.jsx';
+
 
 const requireAuth = (nextState, replace) => {
      if (!CookieStore.isUserAuthenticated()){
@@ -26,6 +28,7 @@ render(
             <Route path="/register" component={Register}/>
               <Route path="/maps" component={Container}/>
             <Route path="/events" component={NewEvent}/>
+            <Route path="/cardbar" component={CardBar}/>
               <Route path="/success/:message" component={Success}/>
             <Route path="/users/profile" component={Profile} onEnter={requireAuth}/>
         </Route>
