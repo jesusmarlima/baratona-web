@@ -3,7 +3,20 @@ import CookieStore from '../modules/cookie_store.js';
 
 
 class LeftMenu extends React.Component{
+
+
+  constructor(props){
+    super(props);
+  }
+
+  handleEventClick(e,name){
+      this.props.onClick(name)
+  }
+
+
   render(){
+    const events = this.props.events
+
     return(
         <div className="left_side">
           <h3>
@@ -12,18 +25,9 @@ class LeftMenu extends React.Component{
           <a className="waves-effect waves-light btn" href="/events">New Event</a>
           <div className="myEventsList">
              <ul>
-               <li>
-                 <span><a href="#" >Jesusmar's Birthday</a></span>
-               </li>
-               <li>
-                 <span><a href="#" >Vanessa's Birthday</a></span>
-               </li>
-               <li>
-                 <span><a href="#" >Claudio's Wedding</a></span>
-               </li>
-               <li>
-                 <span><a href="#" >Silvia's Party</a></span>
-               </li>
+               {
+                 events.map((event,i) =>  <li key={i}><span><a ref={event.name} onClick={(e) => this.handleEventClick(e,event.name)}>{event.name}</a></span></li> )
+               }
             </ul>
           </div>
         </div>

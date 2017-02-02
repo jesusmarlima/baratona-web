@@ -1,38 +1,60 @@
 import React from 'react';
+import axios from 'axios';
 import CookieStore from '../modules/cookie_store.js';
 import NewEvent from '../events/new_event.component.jsx';
 import {browserHistory}  from 'react-router';
 import LeftMenu from '../events/left_menu.component.jsx';
-import Container from '../maps/container.component.jsx';
+import EventDetail from '../events/event_detail.component.jsx';
+
 
 class Profile extends React.Component{
 
   constructor(props){
     super(props);
+    this.state = {
+      events:[],
+      event:{}
+    }
   }
 
   showNewEvent(e){
     browserHistory.push('/events');
   }
 
+  componentDidMount(){
+
+    let token = CookieStore.getToken()
+    let credentials = { email: CookieStore.getUser().email }
+
+    axios.defaults.baseURL = '__BARATONA_API_URL__' + '/events';
+    axios.defaults.headers.common['Authorization'] = token;
+    axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+    axios.get(__BARATONA_API_URL__ + '/events', {params: credentials} )
+        .then((response) => this.setState({events:response.data.events}))
+        .catch((error) => {
+          if (error.response){
+            this.setState({errors: error.response.data})
+          }
+        })
+
+  }
+
+  eventClick(name){
+    var event = this.state.events.find((e) => (e.name == name) )
+    this.setState({
+      event:event
+    })
+  }
+
 
   render(){
+
+    const events = this.state.events
+
     return(
       <div>
-        <LeftMenu />
-        <div className="right_side">
-            <div className="Row">
-              <p>name: Jesusmar Birthday</p>
-              <p>Description: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-              <p>Date: 10/10/2010</p>
-              <p>Location:</p>
-              <div className="Row">
-                <Container />
-              </div>
-
-            </div>
-        </div>
-
+        <LeftMenu onClick={this.eventClick.bind(this)} events={events}/>
+        <EventDetail event={this.state.event}/>
       </div>
     );
   }

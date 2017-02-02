@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GoogleApiComponent from './GoogleApiComponent.js'
-import Map from './map.component.jsx'
-import Marker from './marker.component.jsx'
-import InfoWindow from './info_window.component.jsx'
+import {GoogleApiWrapper,Map, Marker, InfoWindow} from 'google-maps-react';
 import axios from 'axios';
 import CookieStore from '../modules/cookie_store.js';
 import Errors from '../common/errors.component.jsx';
@@ -20,14 +17,39 @@ export class Container extends React.Component {
           activeMarker: {},
           selectedPlace: {},
           text_to_search:"",
-          pos:{lat: 40.660828, lng: -73.9771258},
           name:"",
-          bar:{name:"",icon:""}
+          bars:[],
+          pos:null
       }
     }
 
+
     handleChange(event){
       this.search(event.target.value);
+    }
+
+
+    handleResponse(response){
+
+      var bars = response.data.bars
+
+      if (bars.length == 0) {
+        alert("No Bars whith this name")
+      } else if (bars.length == 1) {
+        this.props.onClick(bars[0])
+
+        this.setState({
+          bars: bars,
+          pos: bars[0].geometry.location,
+          name: bars[0].name})
+      } else {
+        this.setState({
+          bars: bars,
+          pos: bars[0].geometry.location,
+          name: bars[0].name
+      })
+      }
+
     }
 
 
@@ -39,29 +61,24 @@ export class Container extends React.Component {
       axios.defaults.headers.common['Authorization'] = token;
       axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
       axios.get(__BARATONA_API_URL__ + '/search_by_text/' + credentials.text_to_search)
-          .then((response) => {
-            var bars = response.data.bars
-            var location = bars[0].geometry.location
-            this.setState({
-              bar: bars[0],
-              pos: location,
-              name: bars[0].name})
-          })
+          .then((response) => this.handleResponse(response))
           .catch((error) => {
             if (error.response){
               this.setState({errors: error.response.data})
             }
           })
-      }
+    }
 
     onMarkerClick(props, marker, e){
+
+      this.props.onClick(props.bar)
+
       this.setState({
         selectedPlace: props,
         activeMarker: marker,
         showingInfoWindow: true
       });
 
-      this.props.onClick(this.state.bar)
     }
 
     onInfoWindowClose(){
@@ -72,33 +89,38 @@ export class Container extends React.Component {
     }
 
     render() {
-    return (
-      <div className="row" >
-        <div>
-          <header>
-            <h3>{this.state.text_to_search}</h3>
-            <input className='search-imput' type='text' placeholder='Search' onBlur={this.handleChange.bind(this)}/>
-          </header>
+      const bars = this.state.bars
+      const pos = this.state.pos
+      return (
+        <div className="row" >
+          <div>
+            <header>
+              <h3>{this.state.text_to_search}</h3>
+              <input className='search-imput' type='text' placeholder='Search your Base Bar' onBlur={this.handleChange.bind(this)}/>
+            </header>
+          </div>
+          <div>
+            <Map google={this.props.google}
+                  style={{width: '50%', height: '50%'}}
+                  className={'map'}
+                  zoom={6}
+                  center={pos}>
+                 {
+                    bars.map((bar,i) => <Marker name={bar.name} bar={bar} onClick={this.onMarkerClick.bind(this)} position={bar.geometry.location} key={i}/>)
+                  }
+                    <InfoWindow
+                      marker={this.state.activeMarker}
+                      visible={this.state.showingInfoWindow}>
+                        <CardBar bar={this.state.selectedPlace}/>
+                    </InfoWindow>
+
+            </Map>
+          </div>
         </div>
-        <div>
-          <Map google={this.props.google} style={this.props.style}>
-            <Marker
-              onClick={this.onMarkerClick.bind(this)}
-              name={this}
-              position={this.state.pos}/>
-            <InfoWindow
-              marker={this.state.activeMarker}
-              visible={this.state.showingInfoWindow}
-              onClose={this.onInfoWindowClose.bind(this)}>
-                <CardBar bar={this.state.bar} />
-            </InfoWindow>
-          </Map>
-        </div>
-      </div>
-    );
+      );
   }
 }
 
-export default GoogleApiComponent({
+export default GoogleApiWrapper({
   apiKey: __MAPS_API_KEY__
 })(Container)

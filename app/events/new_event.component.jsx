@@ -5,6 +5,8 @@ import {browserHistory} from 'react-router'
 import {Row, Input,Button,Icon} from 'react-materialize';
 import Errors from '../common/errors.component.jsx'
 import Container from '../maps/container.component.jsx';
+import InputElement from 'react-input-mask';
+
 
 class NewEvent extends React.Component{
 
@@ -109,15 +111,17 @@ class NewEvent extends React.Component{
                 <label htmlFor="date">Date</label>
               </div>
               <div className="input-field col s3 m3 l3">
-                <input ref="hour" id="hour" type="text" className="validate" required/>
-                <label htmlFor="hour">hour/Minutes (hh:mm)</label>
+                <InputElement ref="hour" id="hour" mask="99\:99\" maskChar=" " type="text" className="validate" required/>
+                <label htmlFor="hour">(hh:mm)</label>
               </div>
             </div>
             <div className="row">
               <div className="input-field col s12 m12 l12">
-                <input ref="base_location" id="base_location" type="text" onChange={this.handleChange} value={this.state.BaseBar? JSON.stringify(this.state.BaseBar):""} className="validate" required disabled/>
-                <label htmlFor="base_location">Base location</label>
+                <input ref="base_location" id="base_location" type="hidden" onChange={this.handleChange} value={this.state.BaseBar? JSON.stringify(this.state.BaseBar):""} className="validate" required disabled/>
               </div>
+            </div>
+            <div className="row">
+              <label htmlFor="base_location">Base Location: {this.state.BaseBar.name}</label>
             </div>
               <div className="row center">
                     <button className="btn waves-effect waves-light" type="submit" name="action">Submit
@@ -127,7 +131,7 @@ class NewEvent extends React.Component{
           </form>
         </div>
         <div className="col s12 m6 l6">
-            <Container style={{width: '100%',height: '50vh'}} onClick={this.handleClick}></Container>
+            <Container style={{width: '50%',height: '50%'}} onClick={this.handleClick}></Container>
         </div>
       </div>
     );
