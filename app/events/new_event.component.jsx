@@ -131,7 +131,7 @@ class NewEvent extends React.Component{
           </form>
         </div>
         <div className="col s12 m6 l6">
-            <Container style={{width: '50%',height: '50%'}} onClick={this.handleClick}></Container>
+            <Container style={{width: '100%' , height: '100%', position: 'relative'}} onClick={this.handleClick}></Container>
         </div>
       </div>
     );

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {GoogleApiWrapper,Map, Marker, InfoWindow} from 'google-maps-react';
+import {GoogleApiWrapper,Map, InfoWindow} from 'google-maps-react';
+import {Marker} from './Marker.js'
 import axios from 'axios';
 import CookieStore from '../modules/cookie_store.js';
 import Errors from '../common/errors.component.jsx';
@@ -53,6 +54,8 @@ export class Container extends React.Component {
     }
 
 
+
+
     search(text_to_search){
       let token = CookieStore.getToken()
       let credentials = {text_to_search: text_to_search}
@@ -89,6 +92,7 @@ export class Container extends React.Component {
     }
 
     render() {
+  
       const bars = this.state.bars
       const pos = this.state.pos
       return (
@@ -99,9 +103,9 @@ export class Container extends React.Component {
               <input className='search-imput' type='text' placeholder='Search your Base Bar' onBlur={this.handleChange.bind(this)}/>
             </header>
           </div>
-          <div>
+          <div className="teste">
             <Map google={this.props.google}
-                  style={{width: '50%', height: '50%'}}
+                  containerStyle = {{width: '100%' , height: '100%', position: 'relative'}}
                   className={'map'}
                   zoom={6}
                   center={pos}>

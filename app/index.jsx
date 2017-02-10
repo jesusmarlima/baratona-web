@@ -8,7 +8,7 @@ import Success from './common/success.component.jsx'
 import Login from './session/login.component.jsx';
 import CookieStore from './modules/cookie_store.js';
 import Register from './session/register.component.jsx';
-import Profile from './users/profile.component.jsx';
+import Dashboard from './users/dashboard.component.jsx';
 import NewEvent from './events/new_event.component.jsx';
 import Container from './maps/container.component.jsx';
 import CardBar from './events/card_bar.component.jsx';
@@ -30,8 +30,8 @@ render(
             <Route path="/events" component={NewEvent}/>
             <Route path="/cardbar" component={CardBar}/>
               <Route path="/success/:message" component={Success}/>
-            <Route path="/users/profile" component={Profile} onEnter={requireAuth}/>
+            <Route path="/users/dashboard" component={Dashboard} onEnter={requireAuth}/>
         </Route>
     </Router>
-    ,document.getElementById('container')
+    ,document.getElementById('content')
 );
