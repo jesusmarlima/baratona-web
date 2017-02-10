@@ -7,7 +7,7 @@ import LeftMenu from '../events/left_menu.component.jsx';
 import EventDetail from '../events/event_detail.component.jsx';
 
 
-class Profile extends React.Component{
+class Dashboard extends React.Component{
 
   constructor(props){
     super(props);
@@ -22,7 +22,6 @@ class Profile extends React.Component{
   }
 
   componentDidMount(){
-
     let token = CookieStore.getToken()
     let credentials = { email: CookieStore.getUser().email }
 
@@ -30,7 +29,7 @@ class Profile extends React.Component{
     axios.defaults.headers.common['Authorization'] = token;
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.get(__BARATONA_API_URL__ + '/events', {params: credentials} )
-        .then((response) => this.setState({events:response.data.events}))
+        .then((response) => this.setState({events:response.data.events, event:response.data.events[0]}))
         .catch((error) => {
           if (error.response){
             this.setState({errors: error.response.data})
@@ -52,12 +51,12 @@ class Profile extends React.Component{
     const events = this.state.events
 
     return(
-      <div>
-        <LeftMenu onClick={this.eventClick.bind(this)} events={events}/>
-        <EventDetail event={this.state.event}/>
+      <div className="row">
+          <LeftMenu onClick={this.eventClick.bind(this)} events={events}/>
+          <EventDetail event={this.state.event}/>
       </div>
     );
   }
 }
 
-export default Profile;
+export default Dashboard;

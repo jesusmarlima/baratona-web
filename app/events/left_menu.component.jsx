@@ -1,5 +1,6 @@
 import React from 'react'
 import CookieStore from '../modules/cookie_store.js';
+import CardUser from '../users/card_user.component.jsx';
 
 
 class LeftMenu extends React.Component{
@@ -10,6 +11,7 @@ class LeftMenu extends React.Component{
   }
 
   handleEventClick(e,name){
+      e.preventDefault()
       this.props.onClick(name)
   }
 
@@ -18,15 +20,13 @@ class LeftMenu extends React.Component{
     const events = this.props.events
 
     return(
-        <div className="left_side">
-          <h3>
-            {CookieStore.getUser().name}
-          </h3>
-          <a className="waves-effect waves-light btn" href="/events">New Event</a>
+      <div className="col s12 m2 l2">
+          <CardUser user={CookieStore.getUser()}/>
           <div className="myEventsList">
-             <ul>
+             <ul className="collection z-depth-1">
+               <li className="collection-item dismissable"><div><h5 className="pink-text text-darken-0">{"Events"}</h5></div></li>
                {
-                 events.map((event,i) =>  <li key={i}><span><a ref={event.name} onClick={(e) => this.handleEventClick(e,event.name)}>{event.name}</a></span></li> )
+                 events.map((event,i) => <li key={i} className="collection-item dismissable"><div>{event.name}<a onClick={(e) => this.handleEventClick(e,event.name)} href="#!" className="secondary-content"><i className="material-icons">send</i></a></div></li> )
                }
             </ul>
           </div>

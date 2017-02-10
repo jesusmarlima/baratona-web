@@ -46,7 +46,7 @@ class Navigator extends Component {
                  <Navbar className='purple darken-4' brand='Baratona' right>
                      <NavItem href='/login'>Login</NavItem>
                      <NavItem href='/register'>Register</NavItem>
-                     <NavItem href='/users/profile'>
+                     <NavItem href='/users/dashboard'>
                         {this.user()}
                      </NavItem>
                  </Navbar>
