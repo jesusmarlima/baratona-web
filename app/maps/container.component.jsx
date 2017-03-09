@@ -6,6 +6,7 @@ import axios from 'axios';
 import CookieStore from '../modules/cookie_store.js';
 import Errors from '../common/errors.component.jsx';
 import CardBar from '../events/card_bar.component.jsx';
+import AutoComplete from './autocomplete.component.jsx';
 
 
 
@@ -25,8 +26,8 @@ export class Container extends React.Component {
     }
 
 
-    handleChange(event){
-      this.search(event.target.value);
+    handleChange(value){
+        this.search(value);
     }
 
 
@@ -53,6 +54,12 @@ export class Container extends React.Component {
 
     }
 
+
+    autoComplete(){
+      if (this.props.google){
+        return <AutoComplete google = {this.props.google} selectedPlace={this.handleChange.bind(this)} />
+      }
+    }
 
 
 
@@ -100,14 +107,14 @@ export class Container extends React.Component {
           <div>
             <header>
               <h3>{this.state.text_to_search}</h3>
-              <input className='search-imput' type='text' placeholder='Search your Base Bar' onBlur={this.handleChange.bind(this)}/>
+              {this.autoComplete()}
             </header>
           </div>
           <div className="teste">
             <Map google={this.props.google}
                   containerStyle = {{width: '100%' , height: '100%', position: 'relative'}}
                   className={'map'}
-                  zoom={6}
+                  zoom={14}
                   center={pos}>
                  {
                     bars.map((bar,i) => <Marker name={bar.name} bar={bar} onClick={this.onMarkerClick.bind(this)} position={bar.geometry.location} key={i}/>)

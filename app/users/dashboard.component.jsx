@@ -29,7 +29,12 @@ class Dashboard extends React.Component{
     axios.defaults.headers.common['Authorization'] = token;
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
     axios.get(__BARATONA_API_URL__ + '/events', {params: credentials} )
-        .then((response) => this.setState({events:response.data.events, event:response.data.events[0]}))
+        .then((response) => this.setState(
+          {
+            events:response.data.events, 
+            event:response.data.events[0]
+          }
+        ))
         .catch((error) => {
           if (error.response){
             this.setState({errors: error.response.data})
@@ -45,6 +50,12 @@ class Dashboard extends React.Component{
     })
   }
 
+  config(){
+    if (this.state.events.length> 0){
+      return  <EventDetail event={this.state.event}/>
+    }
+  }
+
 
   render(){
 
@@ -53,7 +64,7 @@ class Dashboard extends React.Component{
     return(
       <div className="row">
           <LeftMenu onClick={this.eventClick.bind(this)} events={events}/>
-          <EventDetail event={this.state.event}/>
+         {this.config()}
       </div>
     );
   }
